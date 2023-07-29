@@ -22,7 +22,10 @@ func _process(delta):
 	#position += input_vector * speed * delta;
 	
 	ray_cast_2d.target_position = input_vector * 25;
+	var ray_collide = ray_cast_2d.get_collider()
+	if ray_collide:
+		print("ray: ",ray_collide)
 	
 	var collision = move_and_collide(input_vector * speed * delta);
 	if collision:
-		print(collision.get_collider().name)
+		print("collision ", collision.get_collider().name)

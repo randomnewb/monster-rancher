@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bcs4u8tdlob7w"]
+[gd_scene load_steps=4 format=3 uid="uid://bcs4u8tdlob7w"]
 
 [ext_resource type="PackedScene" uid="uid://bhxbvqbewdb1n" path="res://Player/player.tscn" id="1_hvgoq"]
 [ext_resource type="PackedScene" uid="uid://dsouk4ihhgbrk" path="res://Environment/interactable.tscn" id="2_2huc6"]
+[ext_resource type="PackedScene" uid="uid://b6p674psghchk" path="res://UI/control_progress.tscn" id="3_0v2g0"]
 
 [node name="World" type="Node2D"]
 
@@ -10,3 +11,9 @@ position = Vector2(50, 24)
 
 [node name="Player" parent="." instance=ExtResource("1_hvgoq")]
 position = Vector2(20, 21)
+
+[node name="ControlProgress" parent="." instance=ExtResource("3_0v2g0")]
+offset_left = 160.0
+offset_top = 180.0
+offset_right = 160.0
+offset_bottom = 180.0
