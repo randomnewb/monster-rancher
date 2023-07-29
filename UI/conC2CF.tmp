@@ -42,6 +42,7 @@ theme_override_styles/background = SubResource("StyleBoxFlat_4uhuu")
 theme_override_styles/fill = SubResource("StyleBoxFlat_7sfm3")
 max_value = 42.0
 step = 1.0
+rounded = true
 
 [node name="StopZone" type="ColorRect" parent="."]
 layout_mode = 1
@@ -53,18 +54,9 @@ color = Color(1, 0.560784, 0, 0.682353)
 wait_time = 0.05
 autostart = true
 
-[node name="CheckValueLabel" type="Label" parent="."]
-layout_mode = 1
-offset_top = -50.0
-offset_right = 320.0
-offset_bottom = -24.0
-text = "Check:"
-
-[node name="StopValueLabel" type="Label" parent="."]
-layout_mode = 1
-offset_top = -88.0
-offset_right = 320.0
-offset_bottom = -65.0
-text = "Stop:"
+[node name="DebugTimer" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
 
 [connection signal="timeout" from="ProgressTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="DebugTimer" to="." method="_on_debug_timer_timeout"]
