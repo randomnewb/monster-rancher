@@ -2,6 +2,9 @@ extends CharacterBody2D
 
 @export var speed = 100;
 
+func _ready():
+	pass;
+
 func _process(delta):
 	var input_vector = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 			
@@ -15,4 +18,7 @@ func _process(delta):
 #			sprite_2d.scale.x = sign(input_vector.x);
 #	position.x = clamp(position.x, 5, width - 5);
 #	position.y = clamp(position.y, 5, height - 5);
-	position += input_vector * speed * delta;
+	#position += input_vector * speed * delta;
+	var collision = move_and_collide(input_vector * speed * delta);
+	if collision:
+		print(collision.get_collider().name)
