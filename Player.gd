@@ -2,11 +2,10 @@ extends CharacterBody2D
 
 @export var speed = 100;
 @onready var ray_cast_2d = $RayCast2D
-
 var last_clicked_position = null;
-
-func _ready():
-	pass;
+var interacting = false;
+var collision = null;
+var CONTROL_PROGRESS_SCENE = preload("res://UI/control_progress.tscn")
 
 func _process(delta):
 	var input_vector = Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -29,11 +28,22 @@ func _process(delta):
 #	position.y = clamp(position.y, 5, height - 5);
 	#position += input_vector * speed * delta;
 	
-	ray_cast_2d.target_position = input_vector * 25;
-	var ray_collide = ray_cast_2d.get_collider()
-	if ray_collide:
-		print("ray: ",ray_collide)
+	#ray_cast code
+#	ray_cast_2d.target_position = input_vector * 25;
+#	var ray_collide = ray_cast_2d.get_collider()
+#	if ray_collide:
+#		print("ray: ",ray_collide)
 	
-	var collision = move_and_collide(input_vector * speed * delta);
-	if collision:
+	collision = move_and_collide(input_vector * speed * delta);
+	if collision and not interacting:
+		interacting = true;
 		print("collision ", collision.get_collider().name)
+		var control_progress_scene = CONTROL_PROGRESS_SCENE.instantiate();
+		var world = get_tree().current_scene;
+		world.add_child.call_deferred(control_progress_scene);
+		control_progress_scene.scale.x = 0.05;
+		control_progress_scene.scale.y = 0.1;
+		control_progress_scene.position = global_position;
+
+
+

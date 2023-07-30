@@ -3,7 +3,7 @@ extends Control
 @export var MAX_PROGRESS_VALUE = 42.0;
 @export var progress_value = 0.0;
 @export var default_stop_value = 320.0;
-@export var default_stop_size = 20;
+@export var default_stop_size = 50;
 @onready var stop_value = default_stop_value;
 
 
@@ -32,16 +32,16 @@ func restart():
 	progress_value = 0;
 	stop_value = randi_range(0, (320 - default_stop_size));
 	stop_zone.position.x = stop_value;
-	print(stop_zone.position.x);
-	print(stop_value);
+#	print(stop_zone.position.x);
+#	print(stop_value);
 
 func check_stop_value():
+#	print("check: ", check);
+#	print("check:", check + 10)
+#	print("stop_value:", stop_value);
 	if (check >= stop_value and check < stop_value + default_stop_size):
 		print("WINNER");
-	print("check: ", check);
-	print("check:", check + 10)
-	print("stop_value:", stop_value);
-
+		queue_free()
 
 func set_label():
 	label.text = "Progress: %s" % progress_value
