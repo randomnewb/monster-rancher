@@ -17,6 +17,8 @@ extends Control
 
 @onready var check = roundi(int(progress_value * (default_stop_value / MAX_PROGRESS_VALUE)));
 
+signal mini_game_completed
+
 func _ready():
 	restart();
 	update_progress_ui();
@@ -40,6 +42,7 @@ func check_stop_value():
 #	print("check:", check + 10)
 #	print("stop_value:", stop_value);
 	if (check >= stop_value and check < stop_value + default_stop_size):
+		mini_game_completed.emit();
 		print("WINNER");
 		queue_free()
 

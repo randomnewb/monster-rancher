@@ -7,6 +7,9 @@ var interacting = false;
 var collision = null;
 var CONTROL_PROGRESS_SCENE = preload("res://UI/control_progress.tscn")
 
+#func _ready():
+#	self.mini_game_completed.connect(_on_player_mini_game_completed);
+
 func _process(delta):
 	var input_vector = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 
@@ -44,6 +47,9 @@ func _process(delta):
 		control_progress_scene.scale.x = 0.05;
 		control_progress_scene.scale.y = 0.1;
 		control_progress_scene.position = global_position;
+		control_progress_scene.mini_game_completed.connect(self._on_player_mini_game_completed);
+#		connect("mini_game_completed", self._on_player_mini_game_completed);
 
-
-
+func _on_player_mini_game_completed():
+	print("works!!!?")
+	interacting = false;
