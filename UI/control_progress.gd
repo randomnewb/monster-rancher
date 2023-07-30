@@ -1,9 +1,11 @@
 extends Control
 
-@export var MAX_PROGRESS_VALUE = 42;
-@export var progress_value = 0;
-@export var default_stop_value = 320;
+@export var MAX_PROGRESS_VALUE = 42.0;
+@export var progress_value = 0.0;
+@export var default_stop_value = 320.0;
+@export var default_stop_size = 20;
 @onready var stop_value = default_stop_value;
+
 
 @onready var label = $Label
 @onready var progress_bar = $ProgressBar
@@ -13,7 +15,7 @@ extends Control
 @onready var check_value_label = $CheckValueLabel
 @onready var stop_value_label = $StopValueLabel
 
-@onready var check = int(progress_value * (default_stop_value / MAX_PROGRESS_VALUE));
+@onready var check = roundi(int(progress_value * (default_stop_value / MAX_PROGRESS_VALUE)));
 
 func _ready():
 	restart();
@@ -25,15 +27,16 @@ func update_progress_ui():
 	set_progress_bar();
 
 func restart():
+	stop_zone.size.x = default_stop_size;
 	randomize();
 	progress_value = 0;
-	stop_value = randi_range(0, 310);
+	stop_value = randi_range(0, (320 - default_stop_size));
 	stop_zone.position.x = stop_value;
 	print(stop_zone.position.x);
 	print(stop_value);
 
 func check_stop_value():
-	if (check >= stop_value and check < stop_value + 10):
+	if (check >= stop_value and check < stop_value + default_stop_size):
 		print("WINNER");
 	print("check: ", check);
 	print("check:", check + 10)
@@ -66,8 +69,12 @@ func _on_timer_timeout():
 	progress();
 	
 func _process(delta):
-	check = int(progress_value * (default_stop_value / MAX_PROGRESS_VALUE));
-	check_value_label.text = str(check);
+	check = roundi(int(progress_value * (default_stop_value / MAX_PROGRESS_VALUE)));
 	stop_value_label.text = str(stop_value);
-	if (check >= stop_value):
-		print("WINNER");
+	check_value_label.text = str(check);
+
+	
+	if (check >= stop_value and check <= stop_value + default_stop_size):
+		check_value_label.add_theme_color_override("font_color", Color(1, 1, 0.5))
+	else:
+		check_value_label.remove_theme_color_override("font_color")
