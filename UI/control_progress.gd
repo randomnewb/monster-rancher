@@ -68,13 +68,21 @@ func progress():
 func _on_timer_timeout():
 	progress();
 	
-func _process(delta):
+func _process(_delta):
 	check = roundi(int(progress_value * (default_stop_value / MAX_PROGRESS_VALUE)));
 	stop_value_label.text = str(stop_value);
 	check_value_label.text = str(check);
 
-	
 	if (check >= stop_value and check <= stop_value + default_stop_size):
 		check_value_label.add_theme_color_override("font_color", Color(1, 1, 0.5))
 	else:
 		check_value_label.remove_theme_color_override("font_color")
+
+func _on_button_pressed():
+	if progress_timer.is_stopped():
+		progress_timer.start();
+		restart();
+	else:
+		progress_timer.stop();
+		check = int(progress_value * (default_stop_value / MAX_PROGRESS_VALUE));
+		check_stop_value();

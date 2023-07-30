@@ -68,4 +68,20 @@ offset_right = 320.0
 offset_bottom = -65.0
 text = "Stop:"
 
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 131.0
+offset_top = -90.0
+offset_right = 181.0
+offset_bottom = -40.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "X"
+
 [connection signal="timeout" from="ProgressTimer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
