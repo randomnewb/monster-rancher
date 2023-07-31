@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://yh6ycuaaxh26"]
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SuccessLabel" type="Label" parent="."]
+layout_mode = 0
+offset_right = 320.0
+offset_bottom = 30.0
+text = "Success: 0"
