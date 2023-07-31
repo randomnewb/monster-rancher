@@ -1,12 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://bcs4u8tdlob7w"]
+[gd_scene load_steps=6 format=3 uid="uid://bcs4u8tdlob7w"]
 
 [ext_resource type="Script" path="res://World/world.gd" id="1_5kft5"]
 [ext_resource type="PackedScene" uid="uid://bhxbvqbewdb1n" path="res://Player/player.tscn" id="1_hvgoq"]
 [ext_resource type="PackedScene" uid="uid://dsouk4ihhgbrk" path="res://Environment/interactable.tscn" id="2_2huc6"]
 [ext_resource type="PackedScene" uid="uid://yh6ycuaaxh26" path="res://UI/hud.tscn" id="4_8ph8d"]
+[ext_resource type="PackedScene" uid="uid://bki40wl2soylc" path="res://UI/on_screen_controls.tscn" id="5_gwkgc"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_5kft5")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 320.0
+offset_bottom = 180.0
+color = Color(0, 0, 0, 1)
 
 [node name="Interactable" parent="." instance=ExtResource("2_2huc6")]
 position = Vector2(50, 24)
@@ -18,4 +24,13 @@ position = Vector2(20, 21)
 offset_top = 140.0
 offset_bottom = 180.0
 
+[node name="OnScreenControls" parent="." instance=ExtResource("5_gwkgc")]
+offset_left = 224.0
+offset_top = 82.0
+offset_right = 224.0
+offset_bottom = 82.0
+
 [connection signal="mini_game_won" from="Player" to="." method="_on_player_mini_game_won"]
+[connection signal="button_down" from="OnScreenControls/Button" to="." method="_on_button_button_down"]
+
+[editable path="OnScreenControls"]

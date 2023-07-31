@@ -44,12 +44,13 @@ func _process(delta):
 		var control_progress_scene = CONTROL_PROGRESS_SCENE.instantiate();
 		var world = get_tree().current_scene;
 		world.add_child.call_deferred(control_progress_scene);
-		control_progress_scene.scale.x = 0.05;
-		control_progress_scene.scale.y = 0.1;
+		control_progress_scene.scale.x = 0.2
+		control_progress_scene.scale.y = 0.4
 		control_progress_scene.position = global_position;
+		#other_instance.signal_that_other_instance_is_emitting.connect(to_the_current_object_probably._on_currentObject_name_of_signal)
 		control_progress_scene.mini_game_completed.connect(self._on_player_mini_game_completed);
-#		connect("mini_game_completed", self._on_player_mini_game_completed);
 
 func _on_player_mini_game_completed():
 	interacting = false;
 	mini_game_won.emit();
+	self.set_global_position(Vector2(20,20));

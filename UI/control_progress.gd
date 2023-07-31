@@ -17,12 +17,20 @@ extends Control
 
 @onready var check = roundi(int(progress_value * (default_stop_value / MAX_PROGRESS_VALUE)));
 
+var accept_button_pressed = false;
+
 signal mini_game_completed
 
 func _ready():
 	restart();
 	update_progress_ui();
 	progress_bar.max_value = MAX_PROGRESS_VALUE;
+	#other_instance.signal_that_other_instance_is_emitting.connect(to_the_current_object_probably._on_currentObject_name_of_signal)
+	var world = get_tree().current_scene;
+	world.accept_button_pressed.connect(self._on_accept_button_pressed);
+
+func _on_accept_button_pressed():
+	accept_button_pressed = true;
 	
 func update_progress_ui():
 	set_label();
@@ -47,7 +55,8 @@ func set_progress_bar():
 	progress_bar.value = progress_value;
 
 func _input(event):
-	if event.is_action_pressed("ui_accept"):
+	if event.is_action_pressed("ui_accept") or accept_button_pressed:
+		accept_button_pressed = false;
 		if progress_timer.is_stopped():
 			progress_timer.start();
 			restart();
