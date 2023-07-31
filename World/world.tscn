@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bcs4u8tdlob7w"]
+[gd_scene load_steps=5 format=3 uid="uid://bcs4u8tdlob7w"]
 
 [ext_resource type="Script" path="res://World/world.gd" id="1_5kft5"]
 [ext_resource type="PackedScene" uid="uid://bhxbvqbewdb1n" path="res://Player/player.tscn" id="1_hvgoq"]
-[ext_resource type="PackedScene" uid="uid://dsouk4ihhgbrk" path="res://Environment/interactable.tscn" id="2_2huc6"]
 [ext_resource type="PackedScene" uid="uid://yh6ycuaaxh26" path="res://UI/hud.tscn" id="4_8ph8d"]
 [ext_resource type="PackedScene" uid="uid://bki40wl2soylc" path="res://UI/on_screen_controls.tscn" id="5_gwkgc"]
 
@@ -13,9 +12,6 @@ script = ExtResource("1_5kft5")
 offset_right = 320.0
 offset_bottom = 180.0
 color = Color(0, 0, 0, 1)
-
-[node name="Interactable" parent="." instance=ExtResource("2_2huc6")]
-position = Vector2(50, 24)
 
 [node name="Player" parent="." instance=ExtResource("1_hvgoq")]
 position = Vector2(20, 21)
@@ -29,6 +25,23 @@ offset_left = 224.0
 offset_top = 82.0
 offset_right = 224.0
 offset_bottom = 82.0
+
+[node name="SpawnZone" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 74.0
+offset_top = 20.0
+offset_right = 174.0
+offset_bottom = 120.0
+
+[node name="ColorRect" type="ColorRect" parent="SpawnZone"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.129412)
 
 [connection signal="mini_game_won" from="Player" to="." method="_on_player_mini_game_won"]
 [connection signal="button_down" from="OnScreenControls/Button" to="." method="_on_button_button_down"]
