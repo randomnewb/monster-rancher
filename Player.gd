@@ -35,8 +35,9 @@ func _process(delta):
 #	var ray_collide = ray_cast_2d.get_collider()
 #	if ray_collide:
 #		print("ray: ",ray_collide)
+	if not interacting:
+		collision = move_and_collide(input_vector * speed * delta);
 	
-	collision = move_and_collide(input_vector * speed * delta);
 	if collision and not interacting:
 		interacting = true;
 		print("collision ", collision.get_collider().name)
