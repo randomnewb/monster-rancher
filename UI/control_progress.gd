@@ -1,9 +1,9 @@
 extends Control
 
-@export var MAX_PROGRESS_VALUE = 42.0;
+@export var MAX_PROGRESS_VALUE = 100.0;
 @export var progress_value = 0.0;
 @export var default_stop_value = 320.0;
-@export var default_stop_size = 50;
+@export var default_stop_size = 75.0;
 @onready var stop_value = default_stop_value;
 
 
@@ -37,10 +37,11 @@ func update_progress_ui():
 	set_progress_bar();
 
 func restart():
-	stop_zone.size.x = default_stop_size;
+
+	stop_zone.size.x = (default_stop_size - (Global.experience * 5)); #Difficulty example using Global.experience
 	randomize();
 	progress_value = 0;
-	stop_value = randi_range(0, (320 - default_stop_size));
+	stop_value = randi_range(0, (default_stop_value - default_stop_size));
 	stop_zone.position.x = stop_value;
 
 func check_stop_value():

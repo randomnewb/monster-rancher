@@ -44,7 +44,7 @@ func _process(delta):
 	
 	if collision and not interacting:
 		interacting = true;
-		print("collision ", collision.get_collider().name)
+#		print("collision ", collision.get_collider().name)
 		interacting_object = collision.get_collider()
 		var control_progress_scene = CONTROL_PROGRESS_SCENE.instantiate();
 		var world = get_tree().current_scene;
@@ -62,4 +62,3 @@ func _on_player_mini_game_completed():
 	mini_game_won.emit();
 	interacting = false;
 	animation_player.play("RESET");
-	self.set_global_position(Vector2(20,20));

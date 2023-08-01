@@ -14,11 +14,11 @@ func get_spawn_position():
 	return (Vector2(randi_range(spawn_zone.position.x, spawn_zone.size.x + spawn_zone.position.x), randi_range(spawn_zone.position.y, spawn_zone.size.y + spawn_zone.position.y)))
 
 func get_random_frame(sprite):
-	print(sprite.hframes * sprite.vframes); 
+#	print(sprite.hframes * sprite.vframes); 
 	return randi_range(0, sprite.hframes * sprite.vframes);
 
 func spawn_interactable():
-	print(get_spawn_position());
+#	print(get_spawn_position());
 	var interactable = INTERACTABLE_SCENE.instantiate();
 	var sprite = interactable.find_child("Sprite2D");
 	sprite.frame = get_random_frame(sprite)
@@ -26,16 +26,18 @@ func spawn_interactable():
 	world.add_child.call_deferred(interactable);
 	interactable.position = get_spawn_position();
 
-@onready var success_label = $HUD/SuccessLabel
-@export var success = 0:
+@onready var experience_label = $HUD/ExperienceLabel
+#@export var success = 0:
+var experience = 0.0:
 	get:
-		return success
+		return Global.experience
 	set(value):
-		success = value
-		success_label.text = "Success: " + str(success);
+		Global.experience = value
+		experience = Global.experience
+		experience_label.text = "Experience: " + str(Global.experience);
 
 func _on_player_mini_game_won():
-	success += 1;
+	experience += 1.0;
 	spawn_interactable();
 
 func _on_button_button_down():
