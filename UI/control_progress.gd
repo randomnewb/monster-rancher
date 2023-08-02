@@ -37,15 +37,16 @@ func update_progress_ui():
 	set_progress_bar();
 
 func restart():
-
-	stop_zone.size.x = (default_stop_size - (Global.experience * 5)); #Difficulty example using Global.experience
+	var stop_zone_difficulty = (default_stop_size - (Global.experience * 5)); #Difficulty example using Global.experience
+	stop_zone.size.x = stop_zone_difficulty; 
 	randomize();
 	progress_value = 0;
-	stop_value = randi_range(0, (default_stop_value - default_stop_size));
+	stop_value = randi_range(0, (default_stop_value - stop_zone_difficulty));
 	stop_zone.position.x = stop_value;
 
 func check_stop_value():
-	if (check >= stop_value and check < stop_value + default_stop_size):
+	var stop_zone_difficulty = (default_stop_size - (Global.experience * 5)); #Difficulty example using Global.experience
+	if (check >= stop_value and check < stop_value + stop_zone_difficulty):
 		mini_game_completed.emit();
 		queue_free()
 
@@ -67,7 +68,7 @@ func _input(event):
 			check_stop_value();
 
 func progress():
-	progress_value += 1
+	progress_value += Global.experience + 1; # Another difficulty example, progress_value increases based on exp
 	if progress_value > MAX_PROGRESS_VALUE:
 		restart();
 	update_progress_ui();

@@ -11,6 +11,9 @@ var CONTROL_PROGRESS_SCENE = preload("res://UI/control_progress.tscn")
 @onready var sprite_2d = $Sprite2D
 @onready var animation_player = $AnimationPlayer
 
+@onready var height = ProjectSettings.get_setting("display/window/size/viewport_height");
+@onready var width = ProjectSettings.get_setting("display/window/size/viewport_width");
+
 signal mini_game_won
 
 func _process(delta):
@@ -30,8 +33,8 @@ func _process(delta):
 	#		animation_player.play("run");
 			if input_vector.x != 0:
 				sprite_2d.scale.x = 0.1 * sign(input_vector.x);
-	#	position.x = clamp(position.x, 5, width - 5);
-	#	position.y = clamp(position.y, 5, height - 5);
+		position.x = clamp(position.x, 5, width - 5);
+		position.y = clamp(position.y, 5, height - 5);
 		#position += input_vector * speed * delta;
 		
 		#ray_cast code
