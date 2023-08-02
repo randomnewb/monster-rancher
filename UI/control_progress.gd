@@ -99,6 +99,10 @@ func _process(_delta):
 		check_value_label.add_theme_color_override("font_color", Color(1, 1, 0.5))
 	else:
 		check_value_label.remove_theme_color_override("font_color")
+		
+	if Global.lives == 0:
+		restart();
+		queue_free();
 
 func _on_button_pressed():
 	if progress_timer.is_stopped():

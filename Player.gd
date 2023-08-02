@@ -2,11 +2,11 @@ extends CharacterBody2D
 
 @export var speed = 100;
 @onready var ray_cast_2d = $RayCast2D
-var last_clicked_position = null;
-var interacting = false;
-var interacting_object = null;
-var collision = null;
-var CONTROL_PROGRESS_SCENE = preload("res://UI/control_progress.tscn")
+@onready var last_clicked_position = null;
+@onready var interacting = false;
+@onready var interacting_object = null;
+@onready var collision = null;
+@onready var CONTROL_PROGRESS_SCENE = preload("res://UI/control_progress.tscn")
 
 @onready var sprite_2d = $Sprite2D
 @onready var animation_player = $AnimationPlayer

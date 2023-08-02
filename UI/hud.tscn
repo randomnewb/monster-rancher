@@ -18,3 +18,19 @@ offset_top = 26.0
 offset_right = 320.0
 offset_bottom = 56.0
 text = "Lives: 3"
+
+[node name="GameOverLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 78.0
+offset_top = -78.0
+offset_right = 238.0
+offset_bottom = -48.0
+text = "Game Over!"
+
+[node name="RestartButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 74.0
+offset_top = -52.0
+offset_right = 174.0
+offset_bottom = -21.0
+text = "Restart"
