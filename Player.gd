@@ -15,6 +15,7 @@ var CONTROL_PROGRESS_SCENE = preload("res://UI/control_progress.tscn")
 @onready var width = ProjectSettings.get_setting("display/window/size/viewport_width");
 
 signal mini_game_won
+signal failed_mini_game
 
 func _process(delta):
 	if not interacting:
@@ -57,11 +58,16 @@ func _process(delta):
 		control_progress_scene.position = global_position;
 		#other_instance.signal_that_other_instance_is_emitting.connect(to_the_current_object_probably._on_currentObject_name_of_signal)
 		control_progress_scene.mini_game_completed.connect(self._on_player_mini_game_completed);
+		control_progress_scene.failed_mini_game.connect(self._on_player_failed_mini_game);
 
 func _on_player_mini_game_completed():
 	animation_player.play("swing");
 	await get_tree().create_timer(1.0).timeout;
 	interacting_object.queue_free();
 	mini_game_won.emit();
-	interacting = false;
 	animation_player.play("RESET");
+	await get_tree().create_timer(0.2).timeout;
+	interacting = false;
+
+func _on_player_failed_mini_game():
+	failed_mini_game.emit();

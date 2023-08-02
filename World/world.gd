@@ -3,6 +3,7 @@ extends Node2D
 signal accept_button_pressed;
 
 @onready var spawn_zone = $SpawnZone
+@onready var player = $Player
 
 var INTERACTABLE_SCENE = preload("res://Environment/interactable.tscn")
 
@@ -15,7 +16,7 @@ func get_spawn_position():
 
 func get_random_frame(sprite):
 #	print(sprite.hframes * sprite.vframes); 
-	return randi_range(0, sprite.hframes * sprite.vframes);
+	return randi_range(0, (sprite.hframes * sprite.vframes) - 1);
 
 func spawn_interactable():
 #	print(get_spawn_position());
@@ -36,9 +37,29 @@ var experience = 0.0:
 		experience = Global.experience
 		experience_label.text = "Experience: " + str(Global.experience);
 
+@onready var lives_label = $HUD/LivesLabel
+#@export var success = 0:
+var lives = 3.0:
+	get:
+		return Global.lives
+	set(value):
+		Global.lives = value
+		lives = Global.experience
+		lives_label.text = "Lives: " + str(Global.lives);
+		if Global.lives == 0.0:
+			print("game over");
+			player.queue_free()
+
+
+
 func _on_player_mini_game_won():
 	experience += 1.0;
 	spawn_interactable();
 
+func _on_player_failed_mini_game():
+	lives -= 1.0;
+
 func _on_button_button_down():
 	accept_button_pressed.emit();
+
+

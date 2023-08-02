@@ -2,8 +2,8 @@ extends Control
 
 @export var MAX_PROGRESS_VALUE = 100.0;
 @export var progress_value = 0.0;
-@export var default_stop_value = 320.0;
-@export var default_stop_size = 75.0;
+@export var default_stop_value = 500.0;
+@export var default_stop_size = 250.0;
 @onready var stop_value = default_stop_value;
 
 
@@ -19,12 +19,18 @@ extends Control
 
 var accept_button_pressed = false;
 
+var reverse_value = false;
+
+var stop_zone_difficulty = (default_stop_size - pow(Global.experience,1.2)); #Difficulty example using Global.experience
+
 signal mini_game_completed
+signal failed_mini_game
 
 func _ready():
 	restart();
 	update_progress_ui();
 	progress_bar.max_value = MAX_PROGRESS_VALUE;
+	progress_bar.size.x = default_stop_value;
 	#other_instance.signal_that_other_instance_is_emitting.connect(to_the_current_object_probably._on_currentObject_name_of_signal)
 	var world = get_tree().current_scene;
 	world.accept_button_pressed.connect(self._on_accept_button_pressed);
@@ -37,7 +43,7 @@ func update_progress_ui():
 	set_progress_bar();
 
 func restart():
-	var stop_zone_difficulty = (default_stop_size - (Global.experience * 5)); #Difficulty example using Global.experience
+	reverse_value = false;
 	stop_zone.size.x = stop_zone_difficulty; 
 	randomize();
 	progress_value = 0;
@@ -45,10 +51,12 @@ func restart():
 	stop_zone.position.x = stop_value;
 
 func check_stop_value():
-	var stop_zone_difficulty = (default_stop_size - (Global.experience * 5)); #Difficulty example using Global.experience
 	if (check >= stop_value and check < stop_value + stop_zone_difficulty):
 		mini_game_completed.emit();
 		queue_free()
+		await get_tree().create_timer(0.5).timeout;
+	else:
+		failed_mini_game.emit();
 
 func set_label():
 	label.text = "Progress: %s" % progress_value
@@ -68,9 +76,15 @@ func _input(event):
 			check_stop_value();
 
 func progress():
-	progress_value += Global.experience + 1; # Another difficulty example, progress_value increases based on exp
-	if progress_value > MAX_PROGRESS_VALUE:
-		restart();
+	if not reverse_value:
+		progress_value += (1 + Global.experience / 2); # Another difficulty example, progress_value increases based on exp
+	elif reverse_value:
+		progress_value -= abs((1 + Global.experience / 2)); # Another difficulty example, progress_value increases based on exp
+		
+	if progress_value > MAX_PROGRESS_VALUE and not reverse_value:
+		reverse_value = true;
+	elif progress_value < 0 and reverse_value:
+		reverse_value = false;
 	update_progress_ui();
 
 func _on_timer_timeout():
