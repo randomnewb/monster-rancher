@@ -1,0 +1,7 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://dc1mgk6oqa8o7"]
+
+[ext_resource type="FontFile" uid="uid://b4ri51f1chn3x" path="res://UI/HopeGold.ttf" id="1_wb5eb"]
+
+[resource]
+font = ExtResource("1_wb5eb")
+font_size = 12

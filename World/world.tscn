@@ -13,14 +13,14 @@ offset_right = 320.0
 offset_bottom = 180.0
 color = Color(0, 0, 0, 1)
 
-[node name="Player" parent="." instance=ExtResource("1_hvgoq")]
-position = Vector2(20, 21)
-
 [node name="OnScreenControls" parent="." instance=ExtResource("5_gwkgc")]
 offset_left = 224.0
 offset_top = 82.0
 offset_right = 224.0
 offset_bottom = 82.0
+
+[node name="Player" parent="." instance=ExtResource("1_hvgoq")]
+position = Vector2(20, 21)
 
 [node name="SpawnZone" type="Control" parent="."]
 layout_mode = 3
@@ -49,9 +49,12 @@ visible = false
 [node name="RestartButton" parent="HUD" index="3"]
 visible = false
 
+[node name="InventoryDisplay" parent="HUD" index="4"]
+color = Color(0, 0, 0, 0)
+
+[connection signal="button_down" from="OnScreenControls/Button" to="." method="_on_button_button_down"]
 [connection signal="failed_mini_game" from="Player" to="." method="_on_player_failed_mini_game"]
 [connection signal="mini_game_won" from="Player" to="." method="_on_player_mini_game_won"]
-[connection signal="button_down" from="OnScreenControls/Button" to="." method="_on_button_button_down"]
 [connection signal="pressed" from="HUD/RestartButton" to="." method="_on_restart_button_pressed"]
 
 [editable path="OnScreenControls"]

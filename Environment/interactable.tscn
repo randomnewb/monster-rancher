@@ -1,17 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://dsouk4ihhgbrk"]
 
-[ext_resource type="Texture2D" uid="uid://de7pvikitag5p" path="res://Environment/FoodSheet 16x16.png" id="1_m8c2q"]
+[ext_resource type="PackedScene" uid="uid://btkicc26g0b5g" path="res://UI/ItemSprite2D.tscn" id="1_1sjjn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cvvu4"]
 size = Vector2(8, 8)
 
 [node name="Interactable" type="StaticBody2D" groups=["Entities"]]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_m8c2q")
-hframes = 16
-vframes = 10
+[node name="Sprite2D" parent="." instance=ExtResource("1_1sjjn")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_cvvu4")

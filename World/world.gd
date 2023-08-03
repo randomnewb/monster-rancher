@@ -61,7 +61,17 @@ var extra_lives_counter = 0.0:
 		if Global.extra_lives_counter >= 10.0:
 			Global.extra_lives_counter -= 10.0;
 			lives += 1.0;
-			
+
+@onready var inventory_display = $HUD/InventoryDisplay;
+@onready var ITEM_SPRITE2D_SCENE = preload("res://UI/ItemSprite2D.tscn")
+		# add a Sprite2D that matches the frame from the inventory
+#		var world = get_tree().current_scene;
+#		var item_sprite2d_scene = ITEM_SPRITE2D_SCENE.instantiate();
+#		print(value);
+#		item_sprite2d_scene.frame = value;
+#		inventory_display.add_child(item_sprite2d_scene);
+#		world.add_child.call_deferred(item_sprite2d_scene);
+#		item_sprite2d_scene.position = self.global_position
 
 func _on_player_mini_game_won():
 	experience += 1.0;

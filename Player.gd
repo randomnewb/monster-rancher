@@ -14,6 +14,8 @@ extends CharacterBody2D
 @onready var height = ProjectSettings.get_setting("display/window/size/viewport_height");
 @onready var width = ProjectSettings.get_setting("display/window/size/viewport_width");
 
+var reward = null;
+
 signal mini_game_won
 signal failed_mini_game
 
@@ -50,6 +52,7 @@ func _process(delta):
 		interacting = true;
 #		print("collision ", collision.get_collider().name)
 		interacting_object = collision.get_collider()
+		Global.reward = interacting_object.get_node("Sprite2D").frame
 		var control_progress_scene = CONTROL_PROGRESS_SCENE.instantiate();
 		var world = get_tree().current_scene;
 		world.add_child.call_deferred(control_progress_scene);
