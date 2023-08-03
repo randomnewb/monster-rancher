@@ -7,6 +7,8 @@ signal accept_button_pressed;
 @onready var restart_button = $HUD/RestartButton
 @onready var game_over_label = $HUD/GameOverLabel
 
+@onready var hud = $HUD
+
 var INTERACTABLE_SCENE = preload("res://Environment/interactable.tscn")
 var PLAYER_SCENE = preload("res://Player/player.tscn")
 
@@ -22,7 +24,6 @@ func get_random_frame(sprite):
 	return randi_range(0, (sprite.hframes * sprite.vframes) - 1);
 
 func spawn_interactable():
-#	print(get_spawn_position());
 	var interactable = INTERACTABLE_SCENE.instantiate();
 	var sprite = interactable.find_child("Sprite2D");
 	sprite.frame = get_random_frame(sprite)
@@ -62,17 +63,6 @@ var extra_lives_counter = 0.0:
 			Global.extra_lives_counter -= 10.0;
 			lives += 1.0;
 
-@onready var inventory_display = $HUD/InventoryDisplay;
-@onready var ITEM_SPRITE2D_SCENE = preload("res://UI/ItemSprite2D.tscn")
-		# add a Sprite2D that matches the frame from the inventory
-#		var world = get_tree().current_scene;
-#		var item_sprite2d_scene = ITEM_SPRITE2D_SCENE.instantiate();
-#		print(value);
-#		item_sprite2d_scene.frame = value;
-#		inventory_display.add_child(item_sprite2d_scene);
-#		world.add_child.call_deferred(item_sprite2d_scene);
-#		item_sprite2d_scene.position = self.global_position
-
 func _on_player_mini_game_won():
 	experience += 1.0;
 	extra_lives_counter += 1.0;
@@ -96,11 +86,15 @@ func _on_restart_button_pressed():
 	experience = 0.0;
 	lives = 3.0;
 	extra_lives_counter = 0.0;
+	Global.reward = 0;
+	Global.inventory = [];
 	
 	player = PLAYER_SCENE.instantiate();
 	#other_instance.signal_that_other_instance_is_emitting.connect(to_the_current_object_probably._on_currentObject_name_of_signal)
 	player.mini_game_won.connect(self._on_player_mini_game_won);
 	player.failed_mini_game.connect(self._on_player_failed_mini_game);
+	player.mini_game_won.connect(hud._on_player_mini_game_won);
+
 	var world = get_tree().current_scene;
 	world.add_child.call_deferred(player);
 	player.position = Vector2(20,20);
@@ -108,4 +102,7 @@ func _on_restart_button_pressed():
 	for node in get_tree().get_nodes_in_group("Entities"):
 		node.queue_free();
 		
+	for node in get_tree().get_nodes_in_group("Items"):
+		node.queue_free();
+
 	spawn_interactable();

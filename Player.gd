@@ -66,6 +66,7 @@ func _process(delta):
 func _on_player_mini_game_completed():
 	animation_player.play("swing");
 	await get_tree().create_timer(1.0).timeout;
+	Global.inventory.push_back(Global.reward);
 	interacting_object.queue_free();
 	mini_game_won.emit();
 	animation_player.play("RESET");

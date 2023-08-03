@@ -40,8 +40,8 @@ grow_vertical = 2
 color = Color(1, 1, 1, 0.129412)
 
 [node name="HUD" parent="." instance=ExtResource("4_8ph8d")]
-offset_top = 132.0
-offset_bottom = 172.0
+offset_top = 156.0
+offset_bottom = 180.0
 
 [node name="GameOverLabel" parent="HUD" index="2"]
 visible = false
@@ -55,6 +55,7 @@ color = Color(0, 0, 0, 0)
 [connection signal="button_down" from="OnScreenControls/Button" to="." method="_on_button_button_down"]
 [connection signal="failed_mini_game" from="Player" to="." method="_on_player_failed_mini_game"]
 [connection signal="mini_game_won" from="Player" to="." method="_on_player_mini_game_won"]
+[connection signal="mini_game_won" from="Player" to="HUD" method="_on_player_mini_game_won"]
 [connection signal="pressed" from="HUD/RestartButton" to="." method="_on_restart_button_pressed"]
 
 [editable path="OnScreenControls"]
